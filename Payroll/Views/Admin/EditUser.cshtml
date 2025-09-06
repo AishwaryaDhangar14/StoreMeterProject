@@ -1,0 +1,76 @@
+﻿@model Payroll.Models.Users
+@{
+    Layout = "~/Views/Shared/_LayoutAdminLTE.cshtml";
+    ViewBag.Title = Model.UserId == 0 ? "Add User" : "Edit User";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div class="card">
+        <div class="card-body pt-2">
+            <div class="row">
+                @Html.HiddenFor(m => m.UserId)
+                @Html.HiddenFor(m => m.CreatedAt)
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name)
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                </div>
+                @if (Model.UserId == 0)
+                {
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.PasswordHash, "Password")
+                            @Html.PasswordFor(m => m.PasswordHash, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Address)
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Role)
+                            @Html.DropDownListFor(m => m.Role,
+                                new SelectList(new[] { "User", "Admin", "StoreOwner" }), new { @class = "form-control" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Address)
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Role)
+                            @Html.DropDownListFor(m => m.Role,
+                                new SelectList(new[] { "User", "Admin", "StoreOwner" }), new { @class = "form-control" })
+                        </div>
+                        @Html.HiddenFor(m => m.PasswordHash)
+                    </div>
+                }
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-10">
+                    <div>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save me-2"></i> Save</button>
+                        <a href="@Url.Action("Users", "Admin")" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i> Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+}

@@ -1,0 +1,151 @@
+﻿@model Payroll.Models.LoginModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Login";
+}
+
+<style>
+    .login {
+        background-image: url('../Images/Loginbg.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            if ("@TempData["SuccessMessage"]" != null && "@TempData["SuccessMessage"]" != "")
+            {
+                alert("@TempData["SuccessMessage"]");
+            }
+
+            $(".showpass").click(function () {
+                 $("#Password").attr("type", "text");
+             });
+             $(".showpass").on("mouseleave", function () {
+                 $("#Password").attr("type", "password");
+             });
+
+            $("#UserName").on('keyup', function () {
+                var Value = $(this).val();
+                if (Value == "") {
+                    $(this).addClass('is-invalid').removeClass('is-valid');
+                    //$(this).val("");
+                }
+                else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+            $("#Password").on('keyup', function () {
+                var Value = $(this).val();
+                if (Value == "") {
+                    $(this).addClass('is-invalid').removeClass('is-valid');
+                    //$(this).val("");
+                }
+                else {
+                    $(this).removeClass('is-invalid');
+                }
+            });
+
+
+            $("#btnlogin").click(function (e) {
+                var flg = true;
+
+                if (($("#UserName").val() == null) || $("#UserName").val() == "") {
+                    flg = false;
+                    $("#UserName").addClass('is-invalid').removeClass('is-valid');
+                }
+                else {
+                    $("#UserName").removeClass('is-invalid');
+                }
+
+                if (($("#Password").val() == null) || $("#Password").val() == "") {
+                    flg = false;
+                    $("#Password").addClass('is-invalid').removeClass('is-valid');
+                }
+                else {
+                    $("#Password").removeClass('is-invalid');
+                }
+
+                if (flg == false) {
+                    e.preventDefault();
+                } else {
+                    on();
+                }
+            });
+        });
+    </script>
+
+    <style>
+        input:focus {
+            outline: unset !important;
+            border: 1px solid #273441 !important;
+            box-shadow: inset 0 0 10px #719ECE !important;
+            background-color: lightblue !important;
+            color: black !important;
+        }
+    </style>
+
+    <div class="hold-transition login-page login" style="margin-left:-250px">
+        <div class="login-box">
+            <!-- /.login-logo -->
+            <div class="card card-outline card-primary">
+                <div class="card-header text-center">
+                    <a href="#">
+                        <img src="~/Images/StarImage.png" alt="logo">
+                    </a>
+                </div>
+                <p class="login-box-msg mt-2"><b style="font-size:15px">Sign In</b></p>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                <div class="card-body pt-0">
+                    <form action="../../index3.html" method="post">
+                        <div class="input-group mb-3">
+                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", autocomplete = "off", placeholder = "User ID" })
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="input-group mb-3">
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off", placeholder = "Password" })
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-eye showpass"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="icheck-primary">
+                                    <input type="checkbox" id="remember">
+                                    <label for="remember">
+                                        Remember Me
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-4">
+                                <button type="submit" id="btnlogin" class="btn btn-primary btn-block form-control">Login</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+                    <hr />
+                    Don't Have An Account? <u style="color:#007bff">@Html.ActionLink("Register", "Register") </u>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

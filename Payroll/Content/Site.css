@@ -1,0 +1,118 @@
+﻿body {
+    /* padding-top: 50px;
+    padding-bottom: 20px;*/
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+
+.searchtb, #searchtb {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 0;
+    border: 0 none;
+    padding: 0;
+    font-family: "Roboto", "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    font-size: 12px;
+}
+
+.searchtb, #searchtb td {
+    padding: 0px;
+}
+
+.table-xtra-condensed > thead > tr > th,
+.table-xtra-condensed > tbody > tr > th,
+.table-xtra-condensed > tfoot > tr > th,
+.table-xtra-condensed > thead > tr > td,
+.table-xtra-condensed > tbody > tr > td,
+.table-xtra-condensed > tfoot > tr > td {
+    padding: 2px;
+}
+
+.clsoverlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(122,192,218,0.5); /* Black background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+}
+
+
+
+
+
+.urtbl {
+    border: 0px;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+    .urtbl tr:nth-child(2n + 1) td {
+        background: rgb(229, 238, 255);
+    }
+
+    .urtbl td {
+        border: 1px solid gainsboro;
+        padding: 2px;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .urtbl th {
+        background-color: lightskyblue;
+        border: 1px solid #ccc;
+        padding: 0px 2px 0 0;
+        height: 20px;
+        text-align: left;
+        font-weight: 600;
+    }
+
+.urtbl-info {
+    border: 0px;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+    .urtbl-info tr:nth-child(2n + 1) td {
+        background: #d1ecf1;
+    }
+
+    .urtbl-info td {
+        border: 1px solid #d1ecf1;
+        padding: 2px;
+        text-align: left;
+    }
+
+    .urtbl-info th {
+        background-color: #17a2b8;
+        border: 1px solid #ccc;
+        padding: 0px 2px 0 0;
+        height: 20px;
+        text-align: left;
+        font-weight: 600;
+        color: white;
+    }

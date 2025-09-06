@@ -1,0 +1,53 @@
+﻿@model Payroll.Models.Stores
+@{
+    Layout = "~/Views/Shared/_LayoutAdminLTE.cshtml";
+    ViewBag.Title = Model.StoreId == 0 ? "Add Store" : "Edit Store";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    <div class="card">
+        <div class="card-body pt-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.HiddenFor(m => m.CreatedAt)
+                        @Html.HiddenFor(m => m.StoreId)
+                        @Html.LabelFor(m => m.StoreName,"Name")
+                        @Html.TextBoxFor(m => m.StoreName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address)
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                    </div>
+                </div>
+              
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.OwnerId, "Store Owner")
+                        @Html.DropDownListFor(m => m.OwnerId,
+                            new SelectList(ViewBag.Owners as List<Payroll.Models.Users>, "UserId", "Name"), new { @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-10">
+                    <div>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save me-2"></i> Save</button>
+                        <a href="@Url.Action("Stores", "Admin")" class="btn btn-secondary"><i class="fas fa-arrow-left me-2"></i> Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

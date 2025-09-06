@@ -1,0 +1,114 @@
+﻿
+.cm-nav 
+{
+    
+    text-align: left;
+    top: 0;
+}
+    
+.cm-nav ul ul 
+{
+    display: none;
+}
+
+.cm-nav ul li:hover > ul 
+{
+    display: block;
+}
+
+
+.cm-nav ul 
+{
+    background: #efefef; 
+    background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+    background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+    background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+    box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+    padding: 0 20px;
+    /*border-radius: 10px;*/  
+    list-style: none;
+    position: relative;
+    display:block;
+    margin-top:0px;
+}
+.cm-nav ul:after 
+{
+	content: ""; clear: both; display: block;
+}
+
+.cm-nav ul li 
+{
+	float: left;
+}
+.cm-nav ul li:hover 
+{
+	background: #4b545f;
+	background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
+	background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
+	background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
+}
+.cm-nav ul li:hover a 
+{
+	color: #fff;
+}
+		
+.cm-nav ul li a 
+{
+	display: block; 
+	padding: 5px 20px;
+	/*color: #757575;*/ 
+    color:black;
+    text-decoration: none;
+}
+			
+		
+.cm-nav ul ul 
+{
+	background: #5f6975; border-radius: 0px; padding: 0;
+	position: absolute; 
+    /*top: 100%;*/
+}
+.cm-nav ul ul li 
+{
+	float: none; 
+	border-top: 1px solid #6b727c;
+	border-bottom: 1px solid #575f6a; position: relative;
+    /*display:block;*/
+}
+.cm-nav ul ul li a 
+{
+	padding: 5px 20px;
+	color: #fff;
+               
+}	
+.cm-nav ul ul li a:hover 
+{
+    background: #259bdb;
+	/*background: #4b545f;*/
+}
+		
+.cm-nav ul ul ul 
+{
+    white-space: nowrap;
+	position:absolute; left: 100%; top:0;
+}
+
+/*.edge {
+    right:0;
+}
+
+.cm-nav li > a:after {
+   color: #ff0000;
+   content: ' ▾';
+}
+
+.cm-nav li:first-child::before
+{
+    position: absolute;
+    left: -10px;
+    background-image: url("../images/rarrow.png");
+}
+*/
+.cm-nav li a.arrow {background-image: url("../images/rarrow.png");}
+
+.cm-nav > li > a.arrow {background-image: url("../images/rarrow.png");}

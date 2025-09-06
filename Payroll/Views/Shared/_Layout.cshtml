@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - StoreMeter</title>
+    <link rel="icon" href="@Url.Content("~/Images/StoreMeter.png")" />
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript">
+        window.history.forward(1);
+    </script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/adminlte/js")
+</head>
+
+<body>
+    <script src="~/Scripts/overlay.js"></script>
+    <header style="background-color:lightslategray">
+        <div>
+
+            <div style="clear:both">
+                @RenderSection("menu", required: false)
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer></footer>
+    <div class="clsoverlay" id="ImageDiv">
+        <div style="text-align:center;padding-top:100px">
+            <img src="~/Images/wait.gif" />
+            <br />
+            <label id="otext" style="font-size:30px">Please Wait...</label>
+        </div>
+    </div>
+    @RenderSection("scripts", required: false)
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</body>
+</html>

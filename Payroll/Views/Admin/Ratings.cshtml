@@ -1,0 +1,36 @@
+﻿@model List<Payroll.Models.StoreRatingSummaryViewModel>
+@{
+    Layout = "~/Views/Shared/_LayoutAdminLTE.cshtml";
+    ViewBag.Title = "Ratings Overview";
+}
+<style>
+    .checked {
+        color: orange;
+    }
+</style>
+<table id="indexTbl" class="table table-bordered dataTable table-hover" role="grid" aria-describedby="example1_info">
+    <thead class="table-dark">
+        <tr>
+            <th>Store Id</th>
+            <th>Store Name</th>
+            <th>Average Rating</th>
+            <th>Total Ratings</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr>
+                <td>@s.StoreId</td>
+                <td>@s.StoreName</td>
+                <td>
+                    @for (int i = 1; i <= 5; i++)
+                    {
+                        <span class="fa fa-star @(i <= s.AverageRating ? "checked" : "")"></span>
+                    }
+                </td>
+                <td>@s.TotalRatings</td>
+            </tr>
+        }
+    </tbody>
+</table>

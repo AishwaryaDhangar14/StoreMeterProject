@@ -1,0 +1,87 @@
+﻿body {
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    margin: 20px 0 0 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 100%;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.reportpdf
+{
+	height: 500px;
+	border: 2px solid rgb(71, 104, 145);
+}
+
+
+.ctitle {
+    text-align: center;
+    font-size: 20px;
+    /*background-color: #ffab00;*/
+    background-color : #337ab7;
+    color: white;
+    border-radius: 5px;
+    padding: -1px 0 5px 0px;
+    height: 42px !important;
+    margin: 5px 20px 0px 20px;
+    /* box-shadow: 0.1em 0.1em 0.1em black; */
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif !important;
+    padding: 8px 0 5px 0px !important;
+}
+
+
+.indexcreatediv {
+    /*margin: 5px 20px 0px 20px;*/
+    padding: 5px;
+    /*border: 1px solid #efebeb;*/
+    min-height: 25px;
+}
+
+#indextbl, #myTable {
+    width: 100% !important;
+}
+
+@media print {
+
+    th, td {
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        font-size: 18px;
+        color: #000000;
+    }
+
+    tr {
+        border: 1px solid gray;
+    }
+
+    td {
+        width: 200px;
+        padding: 3px;
+    }
+
+    th {
+        background-color: #D2E0E8;
+        color: #003366
+    }
+
+    table {
+        border: 1pt solid gray;
+        text-align: center;
+    }
+}

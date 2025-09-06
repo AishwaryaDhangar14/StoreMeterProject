@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Payroll.Models.StoreViewModel>
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutAdminLTE.cshtml";
+}
+
+<div class="container-fluid mt-4">
+    
+    <!-- Search -->
+    <form method="get" action="@Url.Action("Dashboard", "User")" class="row mb-3">
+        <div class="col-md-5">
+            <input type="text" name="searchName" class="form-control" placeholder="Search by Store Name" value="@ViewBag.SearchName" />
+        </div>
+        <div class="col-md-5">
+            <input type="text" name="searchAddress" class="form-control" placeholder="Search by Address" value="@ViewBag.SearchAddress" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Search</button>
+        </div>
+    </form>
+
+    <!-- Store List -->
+    <table id="storeTbl" class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Store Name</th>
+                <th>Address</th>
+                <th>Overall Rating</th>
+                <th>Your Rating</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var store in Model)
+                {
+                    <tr>
+                        <td>@store.StoreName</td>
+                        <td>@store.Address</td>
+                        <td>@store.AverageRating.ToString("0.0")</td>
+                        <td>
+                            @if (store.UserRating.HasValue)
+                            {
+                                @store.UserRating
+                            }
+                            else
+                            {
+                                <span class="text-muted">Not Rated</span>
+                            }
+                        </td>
+                        <td>
+                            <form method="post" action="@Url.Action("SubmitRating", "User")" class="d-flex">
+                                <input type="hidden" name="storeId" value="@store.StoreId" />
+                                <select name="rating" class="form-select me-2" required>
+                                    <option value="">Select</option>
+                                    @for (int i = 1; i <= 5; i++)
+                                    {
+                                        <option value="@i" @(store.UserRating == i ? "selected" : "")>@i</option>
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="5" class="text-center">No stores found.</td></tr>
+            }
+        </tbody>
+    </table>
+
+  
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            $("#storeTbl").DataTable();
+        });
+    </script>
+}

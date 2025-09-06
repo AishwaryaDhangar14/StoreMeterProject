@@ -1,0 +1,122 @@
+﻿@model Payroll.Models.Users
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Register";
+}
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "registerfrm" }))
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".showpass").click(function () {
+                $("#PasswordHash").attr("type", "text");
+                $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+            });
+            $(".showpass").on("mouseleave", function () {
+                $("#PasswordHash").attr("type", "password");
+                $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+            });
+
+            $("#post").click(function (event) {
+
+                var flg = true;
+
+                if (flg == false) {
+                    event.preventDefault();
+                }
+                else {
+                    on();
+                    $("#registerfrm").submit();
+                }
+            });
+
+        });
+
+    </script>
+
+    <style>
+        .login {
+            background-image: url('../Images/Loginbg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        input:focus {
+            outline: unset !important;
+            border: 1px solid #273441 !important;
+            box-shadow: inset 0 0 10px #719ECE !important;
+            background-color: lightblue !important;
+            color: black !important;
+        }
+    </style>
+
+    <div class="login-page login" style="margin-left:-250px;justify-content:initial">
+        <div class="login-box" style="width:600px;margin-top:50px;">
+            <!-- /.login-logo -->
+            <div class="card  card-outline card-primary " style="min-height:350px">
+                <div class="card-header text-center">
+                    <a href="#">
+                        <img src="~/Images/StarImage.png" alt="logo">
+                    </a>
+                </div>
+                <p class="login-box-msg mt-2"><b style="font-size:15px" id="heading">Registration</b></p>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                <span style="color:green;padding-bottom:5px;padding-left:20px">@ViewBag.Response</span>
+                <div class="card-body pt-2">
+                    <div style="" id="custdtl" class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Name", new { @class = "control-label" })
+                                @Html.TextBox("Name", "", new { @class = "form-control" })
+                                <div class="invalid-feedback">Please Enter Valid Name.</div>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label("Email ID", new { @class = "control-label" })
+                                @Html.TextBox("Email", "", new { @class = "form-control" })
+                                <div class="invalid-feedback">Please Enter Valid Email ID.</div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.Label("Address", new { @class = "control-label" })
+                                @Html.TextBox("Address", "", new { @class = "form-control" })
+                                <div class="invalid-feedback">Please Enter Address.</div>
+                            </div>
+                                @Html.Hidden("Role")
+                       
+                            <div class="form-group">
+                                @Html.Label("Login Password", new { @class = "control-label" })
+                                <div class="input-group">
+                                    @Html.Password("PasswordHash", "", new { @class = "form-control" })
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <span class="fas fa-eye-slash showpass"></span>
+                                        </div>
+                                    </div>
+                                    <div class="invalid-feedback">Please Enter Valid Login Password.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" id="footer">
+                        <div class="col-10">
+                            <div>
+                                Already Registered? <u style="color:lightskyblue"> @Html.ActionLink("Sign In", "Login")</u>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <button type="submit" id="post" class="btn btn-success form-control">Register</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+}

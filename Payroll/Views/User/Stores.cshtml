@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Payroll.Models.StoreRatingViewModel>
+
+@{
+    ViewBag.Title = "Stores";
+    Layout = "~/Views/Shared/_LayoutAdminLTE.cshtml";
+}
+
+<div class="container mt-4">
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+    }
+
+    <table id="indexTbl" class="table table-bordered dataTable table-hover" role="grid" aria-describedby="example1_info">
+        <thead class="table-dark">
+            <tr>
+                <th>Store Name</th>
+                <th>Address</th>
+                <th>Average Rating</th>
+                <th>Your Rating</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var store in Model)
+                {
+                    <tr>
+                        <td>@store.StoreName</td>
+                        <td>@store.Address</td>
+                        <td>
+                            @(store.OverallRating > 0 ? store.OverallRating.ToString("0.0") : "No Ratings")
+                        </td>
+                        <td>
+                            @(store.UserRating > 0 ? store.UserRating.ToString() : "Not Rated")
+                        </td>
+                        <td>
+                            <div class="star-rating" data-storeid="@store.StoreId">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    var filled = i <= store.UserRating ? "fas" : "far"; // fas=filled star, far=empty star
+                                    <i class="@filled fa-star rating-star"
+                                       data-score="@i"
+                                       style="cursor:pointer; color:gold; font-size:18px; margin-right:2px;"></i>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td colspan="5" class="text-center">No stores found.</td></tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts{
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/a2d9d6c1e2.js" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).on("click", ".rating-star", function () {
+            var storeId = $(this).closest(".star-rating").data("storeid");
+            var score = $(this).data("score");
+
+            $.ajax({
+                url: '@Url.Action("SubmitRating", "User")',
+                type: "POST",
+                data: { storeId: storeId, rating: score },
+                success: function (response) {
+                    if (response.success) {
+                        // Update stars visually
+                        var stars = $("div[data-storeid='" + storeId + "'] .rating-star");
+                        stars.removeClass("fas").addClass("far");
+                        stars.each(function () {
+                            if ($(this).data("score") <= score) {
+                                $(this).removeClass("far").addClass("fas");
+                            }
+                        });
+                        location.reload(); // refresh to update average rating
+                    } else {
+                        alert(response.message || "Error saving rating.");
+                    }
+                }
+            });
+        });
+    </script>
+}
+

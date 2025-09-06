@@ -1,0 +1,198 @@
+﻿@model Payroll.Models.AdminDashboardViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutAdminLTE.cshtml";
+}
+
+<div class="row">
+    <!-- Total Users -->
+    <div class="col-md-3 col-xs-6">
+        <div class="small-box bg-gradient-blue">
+            <div class="inner">
+                <h5>Total Users</h5>
+                <h3>@Model.TotalUsers</h3>
+            </div>
+            <a href="~/Admin/Users" class="small-box-footer">More Info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <!-- Total Stores -->
+    <div class="col-md-3 col-xs-6">
+        <div class="small-box bg-aqua">
+            <div class="inner">
+                <h5>Total Stores</h5>
+                <h3>@Model.TotalStores</h3>
+            </div>
+            <a href="~/Admin/Stores" class="small-box-footer">More Info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <!-- Total Ratings -->
+    <div class="col-md-3 col-xs-6">
+        <div class="small-box bg-olive">
+            <div class="inner">
+                <h5>Total Ratings</h5>
+                <h3>@Model.TotalRatings</h3>
+            </div>
+            <a href="~/Admin/Ratings" class="small-box-footer">More Info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+
+    <!-- Active Users -->
+    <div class="col-md-3 col-xs-6">
+        <div class="small-box bg-yellow">
+            <div class="inner">
+                <h5>Active Users</h5>
+                <h3>@Model.ActiveUsers</h3>
+            </div>
+            <a href="~/Admin/Users" class="small-box-footer">More Info <i class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Action Buttons -->
+<div class="row" style="margin-bottom: 20px;">
+    <div class="col-md-4">
+        <a href="~/Admin/AddUser" class="btn btn-primary btn-block">Add New User</a>
+    </div>
+    <div class="col-md-4">
+        <a href="~/Admin/AddStore" class="btn btn-success btn-block">Add New Store</a>
+    </div>
+    <div class="col-md-4">
+        <a href="~/Admin/ExportData" class="btn btn-info btn-block">Export Data</a>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Ratings Trend</h3>
+            </div>
+            <div class="box-body">
+                <canvas id="ratingsTrendChart" style="height:250px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="box box-info">
+            <div class="box-header">
+                <h3 class="box-title">User Role Distribution</h3>
+            </div>
+            <div class="box-body">
+                <canvas id="roleDistributionChart" style="height:250px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity Tables -->
+<div class="row">
+    <!-- Recent Users -->
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">Recently Registered Users</h3>
+            </div>
+            <div class="box-body table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Registered On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model.RecentUsers)
+                        {
+                            <tr>
+                                <td>@user.Name</td>
+                                <td>@user.Email</td>
+                                <td>@user.Role</td>
+                                <td>@user.CreatedAt.ToShortDateString()</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Stores -->
+    <div class="col-md-6">
+        <div class="box box-success">
+            <div class="box-header">
+                <h3 class="box-title">Recently Added Stores</h3>
+            </div>
+            <div class="box-body table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Store Name</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Average Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var store in Model.RecentStores)
+                        {
+                            <tr>
+                                <td>@store.Name</td>
+                                <td>@store.Email</td>
+                                <td>@store.Address</td>
+                                <td>@store.AverageRating</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Ratings Trend Chart
+        var ctxTrend = document.getElementById('ratingsTrendChart').getContext('2d');
+        var ratingsTrendChart = new Chart(ctxTrend, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Json.Encode(Model.RatingsTrendLabels)),
+                datasets: [{
+                    label: 'Ratings Submitted',
+                    data: @Html.Raw(Json.Encode(Model.RatingsTrendData)),
+                    borderColor: 'rgba(60,141,188,1)',
+                    backgroundColor: 'rgba(60,141,188,0.2)',
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+
+        // User Role Distribution Chart
+        var ctxRole = document.getElementById('roleDistributionChart').getContext('2d');
+        var roleChart = new Chart(ctxRole, {
+            type: 'doughnut',
+            data: {
+                labels: @Html.Raw(Json.Encode(Model.UserRolesLabels)),
+                datasets: [{
+                    data: @Html.Raw(Json.Encode(Model.UserRolesData)),
+                    backgroundColor: ['#f39c12', '#00c0ef', '#00a65a']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+}

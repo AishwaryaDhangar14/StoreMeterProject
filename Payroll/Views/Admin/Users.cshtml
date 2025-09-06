@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Payroll.Models.UserViewModel>
+@{
+    ViewBag.Title = "Manage Users";
+    Layout = "~/Views/Shared/_LayoutAdminLTE.cshtml";
+}
+<p>
+    <a href="@Url.Action("EditUser", "Admin")" class="btn btn-success">
+        <i class="fas fa-plus me-2"></i> Add New User
+    </a>
+</p>
+
+
+    <table id="indexTbl" class="table table-bordered dataTable table-hover" role="grid" aria-describedby="example1_info">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Address</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Address</td>
+                    <td>@user.Role</td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditUser", new { id = user.UserId }) |
+                        @Html.ActionLink("Delete", "DeleteUser", new { id = user.UserId }, new { onclick = "return confirm('Are you sure you want to delete?');" }) |
+                        @Html.ActionLink("Details", "UserDetails", new { id = user.UserId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Payroll.Models.StoreViewModel>
+@{
+    ViewBag.Title = "Manage Stores";
+    Layout = "~/Views/Shared/_LayoutAdminLTE.cshtml";
+}
+<p>
+    <a href="@Url.Action("EditStore", "Admin")" class="btn btn-success">
+        <i class="fas fa-plus me-2"></i> Add New Store
+    </a>
+</p>
+
+<table id="indexTbl" class="table table-bordered dataTable table-hover" role="grid" aria-describedby="example1_info">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Average Rating</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var store in Model)
+        {
+            <tr>
+                <td>@store.StoreName</td>
+                <td>@store.Email</td>
+                <td>@store.Address</td>
+                <td>@store.AverageRating.ToString("0.0")</td>
+                <td>
+                    @Html.ActionLink("Edit", "EditStore", new { id = store.StoreId }) 
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

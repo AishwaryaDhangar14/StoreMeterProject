@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Payroll.Models.OwnerRatingViewModel>
+@{
+    ViewBag.Title = "My Store Ratings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-3">Ratings for My Stores</h3>
+
+    @foreach (var store in Model)
+    {
+        <div class="card mb-4 shadow-sm">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">@store.StoreName</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Average Rating:</strong> @store.AverageRating.ToString("0.0")</p>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in store.Ratings)
+                        {
+                            <tr>
+                                <td>@r.UserName</td>
+                                <td>@r.Email</td>
+                                <td>@r.Score</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>

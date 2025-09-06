@@ -1,0 +1,79 @@
+﻿@model Payroll.Models.Users
+@{
+    Layout = "~/Views/Shared/_LayoutAdminLTE.cshtml";
+    ViewBag.Title = "User Details";
+    var storeRatings = ViewBag.StoreRatings as List<Payroll.Models.StoreRating>;
+}
+
+@using (Html.BeginForm())
+{
+    <style>
+        .checked {
+            color: orange;
+        }
+    </style>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+<div class="card">
+    <div class="card-body pt-2">
+        <div class="row">
+            @Html.HiddenFor(m => m.UserId)
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Name)
+                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @readonly = "true" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Email)
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "true" })
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Address)
+                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @readonly = "true" })
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Role)
+                    @Html.TextBoxFor(m => m.Role, new { @class = "form-control", @readonly = "true" })
+                </div>
+                @Html.HiddenFor(m => m.PasswordHash)
+            </div>
+        </div>
+    </div>
+    @if (storeRatings != null && storeRatings.Count > 0)
+    {
+    <div class="card mt-3">
+        <div class="card-header">
+            <h4>Stores Average Ratings</h4>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Store Name</th>
+                        <th>Average Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var store in storeRatings)
+                    {
+                        <tr>
+                            <td>@store.StoreName</td>
+                            <td>
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <span class="fa fa-star @(i <= store.AverageRating ? "checked" : "")"></span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+    
+</div>
+    
+}

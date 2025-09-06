@@ -1,0 +1,43 @@
+# Build folders
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
+
+# Visual Studio / IDE
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+.idea/
+
+# Publish / deploy
+publish/
+dist/
+
+# NuGet packages
+packages/
+*.nupkg
+*.snupkg
+
+# Database files
+*.mdf
+*.ldf
+*.db
+
+# Logs
+*.log
+
+# Rider / ReSharper
+_ReSharper*/
+*.ReSharper
+
+# User secrets / local settings
+secrets.json
+appsettings.*.Development.json
+
+# Ignore build output in root-level folders
+*/bin/
+*/obj/
